@@ -70,7 +70,6 @@ mydata > .exit
 | ----------------------- | --------------------------------------------- |
 | `main.c`                | Core implementation of SQLiter                |
 | `test.db`               | Example database file generated after running |
-| `Makefile` *(optional)* | Can be added to simplify compilation          |
 
 ---
 

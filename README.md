@@ -42,24 +42,48 @@ This project was built for learning low-level database internals and exploring h
 
 ---
 
+## Build Instructions
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/yourusername/sqliter.git
+   cd sqliter
+   ```
+2. Create a build dir
+
+   ```bash
+   mkdir build && cd build
+   ```
+
+3. Generate build files and compile
+
+   ```bash
+   cmake ..
+   make
+   ```
+4. Run
+
+   ```bash
+   ./sqliter mydata.db
+   ```
+
+---
+
 ## Example Usage
 
 ```bash
-$ gcc main.c -o sqliter
-$ ./sqliter mydata.db
+sqliter > insert 1 maharshi user@example.com
+Executed.
 
-mydata > insert 1 alice alice@mail.com
-Executed.
-mydata > insert 2 bob bob@mail.com
-Executed.
-mydata > select
-(1, alice, alice@mail.com)
-(2, bob, bob@mail.com)
-mydata > .btree
-- leaf (size 2)
+sqliter > select
+(1, maharshi, user@example.com)
+
+sqliter > .btree
+- leaf (size 1)
   - 1
-  - 2
-mydata > .exit
+
+sqliter > .exit
 ```
 
 ---
@@ -89,27 +113,6 @@ mydata > .exit
 * Add **UPDATE** and **DELETE** statements.
 * Implement **multiple table support**.
 * Develop a **Python-based TUI** for visual interaction.
-
----
-
-## Build Instructions
-
-1. Clone the repository
-
-   ```bash
-   git clone https://github.com/yourusername/sqliter.git
-   cd sqliter
-   ```
-2. Compile
-
-   ```bash
-   gcc main.c pager.c btree.c table.c parser.c executor.c layout.c -o main
-   ```
-3. Run
-
-   ```bash
-   ./main mydata.db
-   ```
 
 ---
 

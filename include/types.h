@@ -147,8 +147,9 @@ typedef enum {
 
 // Statement Datatype
 typedef struct {
-  StatementType type;
-  Row row_to_insert; // only used by insert statements
+    StatementType type;
+    Row row_to_insert; // only used by insert statements
+    uint32_t id_to_delete;// only used by delete statements
 } Statement;
 
 // Commands 

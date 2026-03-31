@@ -33,6 +33,23 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement){
 PrepareResult prepare_delete(InputBuffer* input_buffer, Statement* statement) {
     statement->type = STATEMENT_DELETE;
 
+    char* keyword = strtok(input_buffer->buffer, " ");
+    char* id_string = strtok(NULL, " ");
+
+    if (id_string == NULL) {
+        return PREPARE_SYNTAX_ERROR;
+    }
+
+    int32_t id = atoi(id_string);
+
+    if (id < 0) {
+        return PREPARE_NEGATIVE_ID;
+    }
+
+    statement->id_to_delete = id;
+
+    return PREPARE_SUCCESS;
+
 }
 
 PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement){
@@ -46,7 +63,7 @@ PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement)
     }
 
     if (strncmp(input_buffer->buffer, "delete", 6) == 0) {
-        return prepare_delete(input_buffer, statement); //to be implemented
+        return prepare_delete(input_buffer, statement);
     }
 
     return PREPARE_UNRECGONIZED_STATEMENT;

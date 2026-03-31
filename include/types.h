@@ -142,7 +142,8 @@ typedef struct{
 typedef enum {
     STATEMENT_INSERT,
     STATEMENT_DELETE,
-    STATEMENT_SELECT
+    STATEMENT_SELECT,
+    STATEMENT_UPDATE
 } StatementType;
 
 // Statement Datatype

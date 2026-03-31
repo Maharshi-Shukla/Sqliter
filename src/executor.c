@@ -60,6 +60,7 @@ ExecuteResult execute_delete(Statement* statement, Table* table) {
     if (cursor->cell_num < num_cells) {
         uint32_t key_at_index = *leaf_node_key(node, cursor->cell_num);
         if (key_at_index != id_to_delete) {
+            free(cursor);
             return EXECUTE_ID_NOT_FOUND;
         }
     }
@@ -68,6 +69,28 @@ ExecuteResult execute_delete(Statement* statement, Table* table) {
 
     free(cursor);
 
+    return EXECUTE_SUCCESS;
+}
+
+ExecuteResult execute_update(Statement* statement, Table* table) {
+    void* node = get_page(table->pager, table->root_page_num);
+    uint32_t num_cells = (*leaf_node_num_cells(node));
+
+    Row* row_to_insert = &(statement->row_to_insert);
+    uint32_t key_to_update = row_to_insert->id;
+    Cursor* cursor = table_find(table, key_to_update);
+    if(cursor->cell_num < num_cells){
+        uint32_t key_at_index = *leaf_node_key(node, cursor->cell_num);
+        if(key_at_index != key_to_update){
+            free(cursor);
+            return EXECUTE_ID_NOT_FOUND;
+        }
+    }
+
+    void* destination = cursor_value(cursor);
+    serialize_row(row_to_insert, destination);
+
+    free(cursor);
     return EXECUTE_SUCCESS;
 }
 
@@ -87,6 +110,8 @@ ExecuteResult execute_statement(Statement* statement, Table* table){
     switch (statement->type){
         case STATEMENT_INSERT:
             return execute_insert(statement, table);
+        case STATEMENT_UPDATE:
+            return execute_update(statement, table);
         case STATEMENT_DELETE:
             return execute_delete(statement, table);
         case STATEMENT_SELECT:

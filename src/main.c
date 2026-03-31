@@ -95,6 +95,9 @@ int main(int argc, char* argv[]){
             case EXECUTE_TABLE_FULL:
                 printf("Table full.\n");
                 break;
+            case EXECUTE_ID_NOT_FOUND:
+                printf("Id not found.\n");
+                break;
         }
     }
 }

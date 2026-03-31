@@ -30,14 +30,23 @@ PrepareResult prepare_insert(InputBuffer* input_buffer, Statement* statement){
     return PREPARE_SUCCESS;
 }
 
+PrepareResult prepare_delete(InputBuffer* input_buffer, Statement* statement) {
+    statement->type = STATEMENT_DELETE;
+
+}
+
 PrepareResult prepare_statement(InputBuffer* input_buffer, Statement* statement){
     if (strncmp(input_buffer->buffer, "insert", 6) == 0){
         return prepare_insert(input_buffer, statement);
     }
 
-    if (strcmp(input_buffer->buffer, "select") == 0){
+    if (strncmp(input_buffer->buffer, "select", 6) == 0){
         statement->type = STATEMENT_SELECT;
         return PREPARE_SUCCESS;
+    }
+
+    if (strncmp(input_buffer->buffer, "delete", 6) == 0) {
+        return prepare_delete(input_buffer, statement); //to be implemented
     }
 
     return PREPARE_UNRECGONIZED_STATEMENT;

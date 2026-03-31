@@ -141,6 +141,7 @@ typedef struct{
 // Statements Types
 typedef enum {
     STATEMENT_INSERT,
+    STATEMENT_DELETE,
     STATEMENT_SELECT
 } StatementType;
 

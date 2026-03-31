@@ -31,6 +31,8 @@ This project was built for learning low-level database internals and exploring h
 | -------------------------------- | -------------------------------------- |
 | `insert <id> <username> <email>` | Inserts a new record into the database |
 | `select`                         | Displays all stored records            |
+| `update <id> <username> <email>` | Updates a given row                    |
+| `delete <id>`                    | Deletes a given row by id              |
 
 ### Meta Commands
 
@@ -110,7 +112,6 @@ sqliter > .exit
 ## Future Plans
 
 * Support for **DDL commands** (`CREATE TABLE`, `DROP TABLE`, etc.)
-* Add **UPDATE** and **DELETE** statements.
 * Implement **multiple table support**.
 * Develop a **Python-based TUI** for visual interaction.
 

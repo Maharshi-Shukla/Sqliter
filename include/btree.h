@@ -43,6 +43,7 @@ Cursor* internal_node_find(Table* table, uint32_t page_num, uint32_t key);
 
 // B-Tree Insert & Split functions
 void leaf_node_insert(Cursor* cursor, uint32_t key, Row* value);
+void leaf_node_delete(Cursor* cursor, uint32_t key);
 void leaf_node_split_and_insert(Cursor* cursor, uint32_t key, Row* value);
 void create_new_root(Table* table, uint32_t right_child_page_num);
 void internal_node_insert(Table* table, uint32_t parent_page_num, uint32_t child_page_num);

@@ -171,7 +171,8 @@ typedef enum{
 typedef enum{
     EXECUTE_SUCCESS,
     EXECUTE_DUPLICATE_KEY,
-    EXECUTE_TABLE_FULL
+    EXECUTE_TABLE_FULL,
+    EXECUTE_ID_NOT_FOUND
 } ExecuteResult;
 
 //used the Cursor data structure that keeps track of the 

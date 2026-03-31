@@ -260,6 +260,20 @@ void leaf_node_insert(Cursor* cursor, uint32_t key, Row* value){
     serialize_row(value, leaf_node_value(node, cursor->cell_num));
 
 }
+
+void leaf_node_delete(Cursor* cursor, uint32_t key) {
+    void * node = get_page(cursor->table->pager, cursor->page_num);
+    uint32_t num_cells = *leaf_node_num_cells(node);
+
+    if (cursor->cell_num < num_cells - 1) {
+        for (uint32_t i = cursor->cell_num; i < num_cells; i++) {
+            memcpy(leaf_node_cell(node, i), leaf_node_cell(node, i+1), LEAF_NODE_CELL_SIZE);
+        }
+    }
+
+    *(leaf_node_num_cells(node)) -= 1;
+}
+
 void leaf_node_split_and_insert(Cursor* cursor, uint32_t key, Row* value){
     //Create a new node and move half the cells over
     //Insert the new value in on of the two nodes

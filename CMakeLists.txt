@@ -10,4 +10,4 @@ include_directories(include)
 file(GLOB SOURCES "src/*.c")
 
 # Define the executable and its source files
-add_executable(my_app ${SOURCES})
+add_executable(Sqliter ${SOURCES})

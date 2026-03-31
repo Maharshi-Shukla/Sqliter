@@ -46,6 +46,31 @@ ExecuteResult execute_insert(Statement* statement, Table* table){
     return EXECUTE_SUCCESS;
 }
 
+ExecuteResult execute_delete(Statement* statement, Table* table) {
+    void* node = get_page(table->pager, table->root_page_num);
+    uint32_t num_cells = (*leaf_node_num_cells(node));
+
+    if (num_cells == 0) {
+        printf("Error: Cannot delete from an empty table.\n");
+        return EXECUTE_SUCCESS;
+    }
+
+    uint32_t id_to_delete = statement->id_to_delete;
+    Cursor* cursor = table_find(table, id_to_delete);
+    if (cursor->cell_num < num_cells) {
+        uint32_t key_at_index = *leaf_node_key(node, cursor->cell_num);
+        if (key_at_index != id_to_delete) {
+            return EXECUTE_ID_NOT_FOUND;
+        }
+    }
+
+    leaf_node_delete(cursor, id_to_delete);
+
+    free(cursor);
+
+    return EXECUTE_SUCCESS;
+}
+
 ExecuteResult execute_select(Statement* statement, Table* table){
     Cursor* cursor = table_start(table);
     Row row;
@@ -62,6 +87,8 @@ ExecuteResult execute_statement(Statement* statement, Table* table){
     switch (statement->type){
         case STATEMENT_INSERT:
             return execute_insert(statement, table);
+        case STATEMENT_DELETE:
+            return execute_delete(statement, table);
         case STATEMENT_SELECT:
             return execute_select(statement, table);
     }

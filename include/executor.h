@@ -6,6 +6,7 @@
 MetaCommandResult do_meta_command(InputBuffer* input_buffer, Table* table);
 ExecuteResult execute_insert(Statement* statement, Table* table);
 ExecuteResult execute_select(Statement* statement, Table* table);
+ExecuteResult execute_delete(Statement* statement, Table* table);
 ExecuteResult execute_statement(Statement* statement, Table* table);
 
 #endif

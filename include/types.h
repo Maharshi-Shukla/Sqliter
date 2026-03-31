@@ -141,13 +141,15 @@ typedef struct{
 // Statements Types
 typedef enum {
     STATEMENT_INSERT,
+    STATEMENT_DELETE,
     STATEMENT_SELECT
 } StatementType;
 
 // Statement Datatype
 typedef struct {
-  StatementType type;
-  Row row_to_insert; // only used by insert statements
+    StatementType type;
+    Row row_to_insert; // only used by insert statements
+    uint32_t id_to_delete;// only used by delete statements
 } Statement;
 
 // Commands 
@@ -169,7 +171,8 @@ typedef enum{
 typedef enum{
     EXECUTE_SUCCESS,
     EXECUTE_DUPLICATE_KEY,
-    EXECUTE_TABLE_FULL
+    EXECUTE_TABLE_FULL,
+    EXECUTE_ID_NOT_FOUND
 } ExecuteResult;
 
 //used the Cursor data structure that keeps track of the 

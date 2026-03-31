@@ -2,6 +2,7 @@
 *.db
 
 #random junk
+.idea/
 .vscode
 *.out
 main
@@ -64,4 +65,5 @@ dkms.conf
 *.dwo
 
 #cmake files
+build/
 cmake-build-debug/

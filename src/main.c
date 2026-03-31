@@ -1,5 +1,3 @@
-// main.c (This is your GOAL)
-
 #include "types.h"
 #include "pager.h"
 #include "btree.h"
